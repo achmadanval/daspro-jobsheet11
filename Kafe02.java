@@ -1,16 +1,25 @@
 import java.util.Scanner;
 public class Kafe02 {
-
     public static void main(String[] args) {
         menu("Andi", true , "diskon50");
         Scanner sc = new Scanner(System.in);
-        System.out.print("\nMasukkan nomor menu yang ingin anda pesan : ");
-        int pilihanMenu = sc.nextInt();
-        System.out.print("Masukkan jumlah item yang ingin anda pesan: ");
-        int banyakItem = sc.nextInt();
-     
-        int hargaTotal = hitungTotalHarga(pilihanMenu, banyakItem);
-        System.out.println("Total harga untuk pesanan anda : Rp" + hargaTotal);
+        int hargaTotal = 0;
+        boolean lanjut = true;
+        while (lanjut) {
+            System.out.print("\nMasukkan nomor menu yang ingin anda pesan  : ");
+            int pilihanMenu = sc.nextInt();
+            System.out.print("Masukkan jumlah item yang ingin anda pesan: ");
+            int banyakItem = sc.nextInt();
+            
+            hargaTotal = hitungTotalHarga2(pilihanMenu, banyakItem, "DISKON50");
+
+            System.out.print("Apakah anda ingin memesan lagi (Y/T) : ");
+            String jawab = sc.next();
+            if (jawab.equalsIgnoreCase("T")) {
+                lanjut = false;
+            }
+        }
+        System.out.println("Total harga untuk pesanan anda : Rp" + hargaTotal);     
     }
     
     public static void menu(String namaPelanggan, boolean isMember, String kodePromo){
@@ -36,10 +45,19 @@ public class Kafe02 {
         System.out.println("============================ ");
         System.out.println(" Silahkan pilih menu yang anda inginkan :)");
     }
-    public static int hitungTotalHarga(int pilihanMenu, int banyakItem) {
+    public static int hitungTotalHarga2(int pilihanMenu, int banyakItem,String kodePromo) {
         int [] hargaItems = {15000, 20000, 22000, 12000, 10000, 18000,};
-
+        
         int hargaTotal = hargaItems[pilihanMenu - 1] * banyakItem;
+        if (kodePromo.equalsIgnoreCase("DISKON50")) {
+            hargaTotal = (int)(hargaTotal * 0.5);
+            System.out.println("Diskon 50% telah di tambahkan.");
+        }else if (kodePromo.equalsIgnoreCase("DISKON30")) {
+            hargaTotal = (int)(hargaTotal * 0.7);
+            System.out.println("Diskon 30% telah di tambahkan.");
+        }else{
+            System.out.println("Kode invalid !, tidak ada potongan harga.");
+        }
         return hargaTotal;
     }
 }

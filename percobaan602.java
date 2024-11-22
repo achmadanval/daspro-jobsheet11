@@ -18,4 +18,4 @@ public class percobaan602 {
         vol = p*l*t;
         System.out.println("Volume persegi panjang adalah : " + vol);
     }
-   
+}
